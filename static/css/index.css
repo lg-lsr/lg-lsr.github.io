@@ -27,6 +27,10 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
+.container.publication-hero-container {
+  max-width: 1500px;
+}
+
 
 .publication-title {
 }
