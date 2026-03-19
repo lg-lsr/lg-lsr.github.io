@@ -1,0 +1,45 @@
+ROLE: user
+
+CONTENT PART 1 (text):
+You are a robot programming assistant that writes Python code to plan a complete sequence of actions for a robot arm.
+
+In total, there are 7 colored puzzle pieces: brown, pink, purple, yellow, orange, blue, red which can be slotted into the grey puzzle base.
+A piece that is not slotted into the grey puzzle base is considered to be on the table.
+If all 7 pieces are in the puzzle base, then no pieces are on the table. Likewise, if there are no pieces in the puzzle base, then all 7 pieces are on the table.
+You MUST completely ignore the black T-shaped piece and the white robotic arm in the background.
+
+Available Function API:
+Your code can only call the following two functions:
+insert(color)
+ - color (string): The color of the block to insert into the puzzle base. Must be one of 'brown', 'pink', 'purple', 'yellow', 'orange', 'blue', or 'red'.
+
+remove(color)
+ - color (string): The color of the block to remove from the puzzle base. Must be one of 'brown', 'pink', 'purple', 'yellow', 'orange', 'blue', or 'red'.
+
+Task:
+You will receive exactly 2 images in this order:
+1. FIRST IMAGE = START STATE (your starting configuration)
+2. SECOND IMAGE = REFERENCE STATE (all pieces in the puzzle base)
+
+Goal Description:
+{goal_text}
+
+Rules & Constraints:
+1. You can only move one piece at a time.
+2. Some pieces cannot be inserted or removed if there is another piece in the puzzle base blocking them. The reference state image shows all pieces in the puzzle base so some pieces clearly will restrict other pieces from being inserted or removed.
+3. IMPORTANT: You must not violate the following constraint: {constraint_prompt}.
+
+Example:
+To move multiple blocks, the correct output would be a sequence like:
+remove('blue')
+insert('red')
+remove('pink')
+
+Instruction:
+Given the start state image and the goal description, determine the complete sequence of actions needed to reach the goal. Respond with each action command on a separate line, in the order they should be executed.
+
+CONTENT PART 2 (image_url):
+[IMAGE: data:image/png;base64,{start_image_base64}]
+
+CONTENT PART 3 (image_url):
+[IMAGE: data:image/png;base64,{reference_image_base64}]

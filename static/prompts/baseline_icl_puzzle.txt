@@ -1,0 +1,92 @@
+ROLE: user
+
+CONTENT PART 1 (text):
+You are a robot programming assistant that writes Python code to plan a complete sequence of actions for a robot arm.
+
+In total, there are 7 colored puzzle pieces: brown, pink, purple, yellow, orange, blue, red which can be slotted into the grey puzzle base.
+A piece that is not slotted into the grey puzzle base is considered to be on the table.
+If all 7 pieces are in the puzzle base, then no pieces are on the table. Likewise, if there are no pieces in the puzzle base, then all 7 pieces are on the table.
+You MUST completely ignore the black T-shaped piece and the white robotic arm in the background.
+
+Available Function API:
+Your code can only call the following two functions:
+insert(color)
+ - color (string): The color of the block to insert into the puzzle base. Must be one of 'brown', 'pink', 'purple', 'yellow', 'orange', 'blue', or 'red'.
+
+remove(color)
+ - color (string): The color of the block to remove from the puzzle base. Must be one of 'brown', 'pink', 'purple', 'yellow', 'orange', 'blue', or 'red'.
+
+Rules & Constraints:
+1. You can only move one piece at a time.
+2. Some pieces cannot be inserted or removed if there is another piece in the puzzle base blocking them. The reference state image shows all pieces in the puzzle base so some pieces clearly will restrict other pieces from being inserted or removed.
+3. IMPORTANT: You must not violate the following constraint: {constraint_prompt}.
+
+IN-CONTEXT LEARNING EXAMPLE:
+Here are 3 example start images with their goal descriptions and one valid action sequence each.
+
+Example 1 action sequence:
+remove('brown')
+remove('yellow')
+remove('blue')
+remove('purple')
+insert('yellow')
+insert('blue')
+insert('red')
+Example 2 action sequence:
+remove('yellow')
+insert('orange')
+insert('purple')
+insert('red')
+insert('brown')
+Example 3 action sequence:
+remove('brown')
+remove('red')
+remove('orange')
+insert('pink')
+insert('red')
+insert('blue')
+Now, let's proceed to your actual task:
+
+Task:
+You will receive exactly 5 images in this order:
+1. EXAMPLE START IMAGE 1
+2. EXAMPLE START IMAGE 2
+3. EXAMPLE START IMAGE 3
+4. ACTUAL START IMAGE
+5. REFERENCE IMAGE (all pieces in base)
+
+Goal Description:
+{goal_text}
+
+Instruction:
+Given the actual start state image and the goal description, determine the complete sequence of actions needed to reach the goal. Respond with each action command on a separate line, in the order they should be executed.
+
+CONTENT PART 2 (text):
+Example 1 Goal Description:
+{examples[0].goal_text}
+Example 1 Start Image:
+
+CONTENT PART 3 (image_url):
+[IMAGE: data:image/png;base64,{examples[0].image_base64}]
+
+CONTENT PART 4 (text):
+Example 2 Goal Description:
+{examples[1].goal_text}
+Example 2 Start Image:
+
+CONTENT PART 5 (image_url):
+[IMAGE: data:image/png;base64,{examples[1].image_base64}]
+
+CONTENT PART 6 (text):
+Example 3 Goal Description:
+{examples[2].goal_text}
+Example 3 Start Image:
+
+CONTENT PART 7 (image_url):
+[IMAGE: data:image/png;base64,{examples[2].image_base64}]
+
+CONTENT PART 8 (image_url):
+[IMAGE: data:image/png;base64,{start_image_base64}]
+
+CONTENT PART 9 (image_url):
+[IMAGE: data:image/png;base64,{reference_image_base64}]

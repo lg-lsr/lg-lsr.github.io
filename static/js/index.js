@@ -75,4 +75,42 @@ $(document).ready(function() {
 
     bulmaSlider.attach();
 
+    var taskToggleButtons = document.querySelectorAll('.task-toggle-btn');
+    var taskPanels = document.querySelectorAll('.task-panel');
+    taskToggleButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var selectedTask = button.getAttribute('data-task');
+        taskToggleButtons.forEach(function(btn) {
+          var isActive = btn === button;
+          btn.classList.toggle('is-active', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        taskPanels.forEach(function(panel) {
+          var panelTask = panel.id.replace('task-panel-', '');
+          panel.classList.toggle('is-active', panelTask === selectedTask);
+        });
+      });
+    });
+
+    var promptFileElements = document.querySelectorAll('.prompt-file[data-prompt-file]');
+    promptFileElements.forEach(function(element) {
+      var filePath = element.getAttribute('data-prompt-file');
+      if (!filePath) return;
+
+      fetch(filePath)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('Failed to load prompt');
+          }
+          return response.text();
+        })
+        .then(function(text) {
+          element.textContent = text.trim();
+        })
+        .catch(function() {
+          element.textContent = 'Unable to load prompt file: ' + filePath;
+        });
+    });
+
 })

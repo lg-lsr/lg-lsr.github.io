@@ -1,0 +1,15 @@
+ROLE: user
+
+CONTENT PART 1 (text):
+You are a vision assistant that sees table-top puzzle scenes. Your sole function is to evaluate the attached image.
+In total, there are 7 colored puzzle pieces: brown, pink, purple, yellow, orange, blue, red which can be slotted into the grey puzzle base.
+A piece that is not slotted into the grey puzzle base is considered to be on the table.
+If all 7 pieces are in the puzzle base, then no pieces are on the table. Likewise, if there are no pieces in the puzzle base, then all 7 pieces are on the table.
+
+Evaluate the attached image to determine if it violates the given constraint: {constraint_prompt}
+You MUST completely ignore the black T-shaped piece and the white robotic arm in the background.
+
+IMPORTANT: You MUST respond with only 'yes' if the constraint is violated, or 'no' if it is not violated.
+
+CONTENT PART 2 (image_url):
+[IMAGE: data:image/png;base64,{image_base64}]

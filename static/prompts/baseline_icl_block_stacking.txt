@@ -1,0 +1,46 @@
+﻿You are a robot programming assistant that writes Python code to plan a complete sequence of actions for a robot arm.
+
+Available Function API:
+Your code can only call the following function:
+pick_place(pick_position, place_position)
+ - pick_position (int): The exact grid location to pick from. Must be an integer 1-12.
+ - place_position (int): The exact grid location to place to. Must be an integer 1-12.
+
+Position Map (bottom row to top row, left to right):
+12 11 10
+ 9  8  7
+ 6  5  4
+ 3  2  1
+
+You will be given an image of the scene. Blocks in the scene occupy these position map positions (empty positions have no block). The block on the bottom of any stack or the only block in a column corresponds to the bottom row in the position map (positions 1, 2, 3); interpret the scene as columns and stacks and map them to the position grid above.
+
+Task:
+Your goal is to transform the 'Current State' image into a configuration that satisfies the following description:
+GOAL DESCRIPTION: {goal_text}
+
+Rules & Constraints:
+1. You can only pick up and move one block at a time.
+2. The block you choose to pick up must be on top of any stack it is in. Do not pick up a block that has a block on top of it.
+3. pick_position must contain the block you want to move, and place_position must be empty.
+4. The place_position must be the lowest empty position in the column of the place_position.
+[ONLY WHEN constraint_text is non-empty]
+5. You must not violate the following constraint: {constraint_text}.
+
+Examples:
+The following examples show a current state image, a goal description, and the correct sequence of pick_place actions.
+
+[REPEATED FOR EACH ICL EXAMPLE]
+Example {index}:
+GOAL DESCRIPTION: {example_goal_text}
+Current State:
+[IMAGE_URL: data:image/png;base64,{example_start_img_base64}]
+Answer:
+pick_place({pick_1}, {place_1})
+pick_place({pick_2}, {place_2})
+...
+
+Instruction:
+Given the current state image and the goal description, determine the complete sequence of actions needed to reach a valid goal configuration. Respond with each pick_place command on a separate line, in the order they should be executed. Do not include any other text.
+
+Current State:
+[IMAGE_URL: data:image/png;base64,{base64_current_img}]

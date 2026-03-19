@@ -1,0 +1,5 @@
+﻿Scene description: '{representative_caption}'
+
+Does this scene violate the rule: '{constraint_text}'?
+
+Respond with only 'yes' or 'no'.
