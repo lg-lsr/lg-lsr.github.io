@@ -30,23 +30,22 @@ $(document).ready(function() {
     });
 
     var options = {
-			slidesToScroll: 1,
-			slidesToShow: 3,
-			loop: true,
-			infinite: true,
-			autoplay: false,
-			autoplaySpeed: 3000,
-    }
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      infinite: true,
+      autoplay: false,
+      autoplaySpeed: 3000,
+    };
 
-		// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
-
-    // Loop on each carousel initialized
-    for(var i = 0; i < carousels.length; i++) {
-    	// Add listener to  event
-    	carousels[i].on('before:show', state => {
-    		console.log(state);
-    	});
+    // Initialize carousel only when the library is available.
+    if (typeof bulmaCarousel !== 'undefined' && bulmaCarousel.attach) {
+      var carousels = bulmaCarousel.attach('.carousel', options);
+      for (var i = 0; i < carousels.length; i++) {
+        carousels[i].on('before:show', function(state) {
+          console.log(state);
+        });
+      }
     }
 
     // Access to bulmaCarousel instance of an element
@@ -73,7 +72,9 @@ $(document).ready(function() {
     setInterpolationImage(0);
     $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
 
-    bulmaSlider.attach();
+    if (typeof bulmaSlider !== 'undefined' && bulmaSlider.attach) {
+      bulmaSlider.attach();
+    }
 
     var taskToggleButtons = document.querySelectorAll('.task-toggle-btn');
     var taskPanels = document.querySelectorAll('.task-panel');
@@ -98,7 +99,7 @@ $(document).ready(function() {
       var filePath = element.getAttribute('data-prompt-file');
       if (!filePath) return;
 
-      fetch(filePath)
+      fetch(filePath, { cache: 'no-store' })
         .then(function(response) {
           if (!response.ok) {
             throw new Error('Failed to load prompt');
